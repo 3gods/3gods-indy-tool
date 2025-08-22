@@ -1,8 +1,24 @@
-import { AppShell, AppShellHeader, AppShellMain, AppShellNavbar, AppShellSection, Burger, Group, ScrollArea, Typography } from '@mantine/core';
+import {
+  AppShell,
+  AppShellHeader,
+  AppShellMain,
+  AppShellNavbar,
+  AppShellSection,
+  Burger,
+  Group,
+  ScrollArea,
+  Typography,
+} from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import { Link, Outlet, createRootRoute } from '@tanstack/react-router'
-import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
-import { IconHome, IconInvoice, IconListTree, IconTool, IconUserShield } from '@tabler/icons-react'
+import { Link, Outlet, createRootRoute } from '@tanstack/react-router';
+import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
+import {
+  IconHome,
+  IconInvoice,
+  IconListTree,
+  IconTool,
+  IconUserShield,
+} from '@tabler/icons-react';
 import { AppLogo } from '../components/AppLogo';
 import { NavLink } from '../components/NavLink';
 
@@ -14,17 +30,17 @@ export const Route = createRootRoute({
         <p>This is the notFoundComponent configured on root route</p>
         <Link to="/">Start Over</Link>
       </div>
-    )
+    );
   },
-})
+});
 
-function RootComponent () {
+function RootComponent() {
   const [opened, { toggle }] = useDisclosure();
 
   return (
     <AppShell
       padding="md"
-      layout='alt'
+      layout="alt"
       header={{ height: 50 }}
       navbar={{
         width: 280,
@@ -33,12 +49,7 @@ function RootComponent () {
       }}
     >
       <AppShellHeader>
-        <Burger
-          opened={opened}
-          onClick={toggle}
-          hiddenFrom="sm"
-          size="sm"
-        />
+        <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
 
         <Typography>
           <h2>Dashboard</h2>
@@ -81,9 +92,7 @@ function RootComponent () {
             leftSection={<IconUserShield />}
           />
         </AppShellSection>
-        <AppShellSection>
-          Footer footer footer
-        </AppShellSection>
+        <AppShellSection>Footer footer footer</AppShellSection>
       </AppShellNavbar>
 
       <AppShellMain>
@@ -91,5 +100,5 @@ function RootComponent () {
         <TanStackRouterDevtools position="bottom-right" />
       </AppShellMain>
     </AppShell>
-  )
+  );
 }

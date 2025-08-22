@@ -1,6 +1,6 @@
-import * as React from 'react'
-import { createLink, type LinkComponent } from '@tanstack/react-router'
-import { NavLink as MantineNavLink, type NavLinkProps } from '@mantine/core'
+import * as React from 'react';
+import { createLink, type LinkComponent } from '@tanstack/react-router';
+import { NavLink as MantineNavLink, type NavLinkProps } from '@mantine/core';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 interface MantineNavLinkProps extends Omit<NavLinkProps, 'href'> {
@@ -11,13 +11,11 @@ const MantineLinkComponent = React.forwardRef<
   HTMLAnchorElement,
   MantineNavLinkProps
 >((props, ref) => {
-  return <MantineNavLink ref={ref} {...props} />
-})
+  return <MantineNavLink ref={ref} {...props} />;
+});
 
-const CreatedLinkComponent = createLink(MantineLinkComponent)
+const CreatedLinkComponent = createLink(MantineLinkComponent);
 
-export const NavLink: LinkComponent<typeof MantineLinkComponent> = (
-  props,
-) => {
-  return <CreatedLinkComponent preload="intent" {...props} />
-}
+export const NavLink: LinkComponent<typeof MantineLinkComponent> = (props) => {
+  return <CreatedLinkComponent preload="intent" {...props} />;
+};
