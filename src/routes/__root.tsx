@@ -7,6 +7,7 @@ import {
   Burger,
   Group,
   ScrollArea,
+  Title,
   Typography,
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
@@ -52,7 +53,7 @@ function RootComponent() {
         <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
 
         <Typography>
-          <h2>Dashboard</h2>
+          <Title order={2}>Dashboard</Title>
         </Typography>
       </AppShellHeader>
 
@@ -61,7 +62,7 @@ function RootComponent() {
           <Group>
             <AppLogo />
             <Typography>
-              <h1>Industry manager</h1>
+              <Title>Industry manager</Title>
             </Typography>
           </Group>
         </AppShell.Section>
