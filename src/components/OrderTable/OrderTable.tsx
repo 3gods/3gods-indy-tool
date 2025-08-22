@@ -9,7 +9,9 @@ import {
 import {
   ActionIcon,
   Button,
+  Code,
   Group,
+  NumberFormatter,
   Table,
   TableScrollContainer,
   TableTbody,
@@ -30,7 +32,7 @@ const columnHelper = createColumnHelper<Order>();
 const columns = [
   columnHelper.accessor('id', {
     header: 'Order ID',
-    cell: (info) => `#${info.getValue()}`,
+    cell: (info) => <Code>#{info.getValue()}</Code>,
   }),
   columnHelper.accessor('itemName', {
     header: 'Item',
@@ -38,7 +40,9 @@ const columns = [
   }),
   columnHelper.accessor('quantity', {
     header: 'Quantity',
-    cell: (info) => info.renderValue(),
+    cell: (info) => (
+      <NumberFormatter thousandSeparator value={info.getValue()} />
+    ),
   }),
   columnHelper.accessor('status', {
     header: 'Status',
