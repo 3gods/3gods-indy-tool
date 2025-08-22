@@ -6,4 +6,4 @@ export type StatCardProps = {
   value: string | number;
   icon: ReactNode;
   color: MantineColor;
-}
+};
