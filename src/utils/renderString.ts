@@ -1,5 +1,11 @@
 import { format, formatDistanceToNow, parseISO } from 'date-fns';
 
+const NUMBER_FORMATTERS = {
+  percent: new Intl.NumberFormat(['en'], {
+    style: 'percent',
+  }),
+};
+
 const safeParseISO = (
   iso8601DateString: string | null | undefined,
 ): Date | string => {
@@ -42,4 +48,12 @@ export const renderRelativeDate = (
     includeSeconds: true,
     addSuffix: true,
   });
+};
+
+export const renderPercent = (ratio: number) => {
+  if (ratio < 0 || ratio > 1) {
+    return '??';
+  }
+
+  return NUMBER_FORMATTERS.percent.format(ratio);
 };
