@@ -1,0 +1,23 @@
+[
+  {
+    "id": "1",
+    "itemName": "Raven Navy Issue",
+    "quantity": 1,
+    "createdAt": "2023-08-15T00:00:00Z",
+    "status": "unassigned"
+  },
+  {
+    "id": "2",
+    "itemName": "Capital Armor Repair Unit II",
+    "quantity": 3,
+    "createdAt": "2024-08-15T12:00:00Z",
+    "status": "unassigned"
+  },
+  {
+    "id": "3",
+    "itemName": "Federation Navy Comet",
+    "quantity": 50,
+    "createdAt": "2023-12-15T00:00:00Z",
+    "status": "unassigned"
+  }
+]

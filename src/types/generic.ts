@@ -1,3 +1,5 @@
+export type IdType = string;
+
 export type ItemWithId = {
-  id: string;
+  id: IdType;
 };

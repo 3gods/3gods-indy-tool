@@ -10,3 +10,7 @@ export type Order = ItemWithId & {
   builder?: Builder;
   deliveryDate?: string;
 };
+
+export type OrderFromApi = Omit<Order, 'builder'> & {
+  builder: Builder['id'];
+};

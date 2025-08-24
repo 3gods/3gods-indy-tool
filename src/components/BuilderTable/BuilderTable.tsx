@@ -6,6 +6,7 @@ import {
   Group,
   List,
   ListItem,
+  Loader,
   NumberFormatter,
   Stack,
   Text,
@@ -13,14 +14,18 @@ import {
 } from '@mantine/core';
 import { BuilderStatusBadge } from '../BuilderStatusBadge';
 import { pluralizeString } from '../../utils/pluralize';
+import { renderPercent } from '../../utils/renderString';
 
 export const BuilderTable = forwardRef<HTMLDivElement, BuilderTableProps>(
-  ({ builders, heading }, ref) => {
+  ({ builders = [], heading, loading = false }, ref) => {
     return (
       <div ref={ref}>
-        <Title order={3} p="sm">
-          {heading}
-        </Title>
+        <Group>
+          <Title order={3} p="sm">
+            {heading}
+          </Title>
+          {loading ? <Loader size="xs" style={{ marginLeft: 'auto' }} /> : null}
+        </Group>
         <List listStyleType="none">
           {builders.map((builder) => {
             return (
@@ -53,7 +58,8 @@ export const BuilderTable = forwardRef<HTMLDivElement, BuilderTableProps>(
                             |
                           </Text>
                           <Text c="dimmed" size="sm">
-                            {builder.completionRate * 100}% completion rate
+                            {renderPercent(builder.completionRate)} completion
+                            rate
                           </Text>
                         </>
                       ) : null}

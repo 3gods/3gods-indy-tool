@@ -11,6 +11,7 @@ import {
   Button,
   Code,
   Group,
+  Loader,
   NumberFormatter,
   Table,
   TableScrollContainer,
@@ -48,21 +49,16 @@ const columns = [
     header: 'Status',
     cell: (info) => <OrderStatusBadge status={info.getValue()} />,
   }),
-  columnHelper.accessor('builder', {
+  columnHelper.accessor('builder.name', {
     header: 'Builder',
-    cell: (info) => {
-      const builder = info.renderValue();
-      if (!builder || typeof builder === 'string') {
-        return builder;
-      }
-      return builder.name;
-    },
+    cell: (info) => info.renderValue(),
   }),
   columnHelper.accessor('deliveryDate', {
     header: 'Delivery date',
     cell: (info) => renderDate(info.renderValue()),
   }),
-  columnHelper.accessor('id', {
+  columnHelper.display({
+    id: 'actions',
     header: '',
     cell: (info) => (
       <Group gap="xs">
@@ -91,7 +87,7 @@ const columns = [
 ];
 
 export const OrderTable = forwardRef<HTMLDivElement, OrderTableProps>(
-  ({ orders = [] }, ref) => {
+  ({ orders = [], loading }, ref) => {
     const table = useReactTable({
       data: orders,
       columns,
@@ -103,6 +99,9 @@ export const OrderTable = forwardRef<HTMLDivElement, OrderTableProps>(
       <div ref={ref}>
         <Group p="sm">
           <Title order={3}>Recent orders</Title>
+
+          {loading ? <Loader size="xs" /> : null}
+
           <Button
             leftSection={<IconPlus />}
             style={{ marginLeft: 'auto' }}

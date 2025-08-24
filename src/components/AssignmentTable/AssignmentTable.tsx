@@ -6,6 +6,7 @@ import {
   Group,
   List,
   ListItem,
+  Loader,
   NumberFormatter,
   Stack,
   Text,
@@ -15,12 +16,15 @@ import { renderRelativeDate } from '../../utils/renderString';
 import { IconUserMinus, IconUserPlus } from '@tabler/icons-react';
 
 export const AssignmentTable = forwardRef<HTMLDivElement, AssignmentTableProps>(
-  ({ heading, assignments = [] }, ref) => {
+  ({ heading, assignments = [], loading = false }, ref) => {
     return (
       <div ref={ref}>
-        <Title order={3} p="sm">
-          {heading}
-        </Title>
+        <Group>
+          <Title order={3} p="sm">
+            {heading}
+          </Title>
+          {loading ? <Loader size="xs" style={{ marginLeft: 'auto' }} /> : null}
+        </Group>
         <List listStyleType="none">
           {assignments.map((assignment) => {
             return (

@@ -1,0 +1,23 @@
+[
+  {
+    "id": "1",
+    "name": "Builder123",
+    "status": "online",
+    "activeOrders": 3,
+    "completionRate": 0.98
+  },
+  {
+    "id": "2",
+    "name": "CapitalBuilder",
+    "status": "online",
+    "activeOrders": 1,
+    "completionRate": 1
+  },
+  {
+    "id": "3",
+    "name": "MinerPro",
+    "status": "away",
+    "activeOrders": 0,
+    "completionRate": 0.92
+  }
+]
