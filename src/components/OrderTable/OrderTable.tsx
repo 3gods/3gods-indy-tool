@@ -50,7 +50,13 @@ const columns = [
   }),
   columnHelper.accessor('builder', {
     header: 'Builder',
-    cell: (info) => info.renderValue(),
+    cell: (info) => {
+      const builder = info.renderValue();
+      if (!builder || typeof builder === 'string') {
+        return builder;
+      }
+      return builder.name;
+    },
   }),
   columnHelper.accessor('deliveryDate', {
     header: 'Delivery date',
@@ -64,7 +70,7 @@ const columns = [
           aria-label="Edit"
           variant="light"
           component={Link}
-          to={`/orders/view/${info.row.id}`}
+          to={`/orders/${info.row.id}`}
           style={(theme) => ({ color: theme.black })}
         >
           <IconEdit style={{ width: '70%', height: '70%' }} stroke={1.5} />
@@ -74,7 +80,7 @@ const columns = [
           variant="light"
           bg="red"
           component={Link}
-          to={`/orders/delete/${info.row.id}`}
+          to={`/orders/${info.row.id}`}
           color="white"
         >
           <IconTrash style={{ width: '70%', height: '70%' }} stroke={1.5} />

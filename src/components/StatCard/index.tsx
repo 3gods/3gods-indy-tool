@@ -5,7 +5,7 @@ import type { StatCardProps } from './types';
 export const StatCard = forwardRef<HTMLDivElement, StatCardProps>(
   ({ label, value, icon, color }, ref) => {
     return (
-      <Paper withBorder radius="md" p="md" ref={ref}>
+      <Paper withBorder p="md" ref={ref}>
         <Group>
           <Center>
             <Box

@@ -9,11 +9,38 @@ import {
 } from '@tabler/icons-react';
 import type { Order } from '../../types';
 import { OrderTable } from '../../components/OrderTable';
+import { AssignmentTable } from '../../components/AssignmentTable';
+import type { Assignment } from '../../types/assignment';
+import { BuilderTable } from '../../components/BuilderTable';
+import type { Builder } from '../../types/builder';
 
 export const Route = createFileRoute('/orders/dashboard')({
   component: DashboardPage,
 });
 
+const DUMMY_BUILDERS: Builder[] = [
+  {
+    id: '1',
+    name: 'Builder123',
+    status: 'online',
+    activeOrders: 3,
+    completionRate: 0.98,
+  },
+  {
+    id: '2',
+    name: 'CapitalBuilder',
+    status: 'online',
+    activeOrders: 1,
+    completionRate: 1,
+  },
+  {
+    id: '3',
+    name: 'MinerPro',
+    status: 'away',
+    activeOrders: 0,
+    completionRate: 0.92,
+  },
+];
 const DUMMY_ORDERS: Order[] = [
   {
     id: 'ORD-7842',
@@ -26,7 +53,7 @@ const DUMMY_ORDERS: Order[] = [
     itemName: 'Tengu',
     quantity: 2,
     status: 'in-progress',
-    builder: 'Builder123',
+    builder: DUMMY_BUILDERS[0],
     deliveryDate: '2023-08-15T00:00:00Z',
   },
   {
@@ -34,8 +61,29 @@ const DUMMY_ORDERS: Order[] = [
     itemName: 'Capital Shield Exetnder II',
     quantity: 3,
     status: 'completed',
-    builder: 'CapitalBuilder',
+    builder: DUMMY_BUILDERS[1],
     deliveryDate: '2023-08-01T00:00:00Z',
+  },
+];
+
+const DUMMY_ASSIGNMENTS: Assignment[] = [
+  {
+    id: '1',
+    itemName: 'Raven Navy Issue',
+    quantity: 1,
+    createdAt: '2023-08-15T00:00:00Z',
+  },
+  {
+    id: '2',
+    itemName: 'Capital Armor Repair Unit II',
+    quantity: 3,
+    createdAt: '2024-08-15T12:00:00Z',
+  },
+  {
+    id: '3',
+    itemName: 'Federation Navy Comet',
+    quantity: 50,
+    createdAt: '2023-12-15T00:00:00Z',
   },
 ];
 
@@ -84,8 +132,19 @@ function DashboardPage() {
         </GridCol>
       </Grid>
       <Grid>
-        <GridCol span={6}>asda table</GridCol>
-        <GridCol span={6}>asda table</GridCol>
+        <GridCol span={6}>
+          <Paper withBorder>
+            <AssignmentTable
+              heading="Pending builder assignments"
+              assignments={DUMMY_ASSIGNMENTS}
+            />
+          </Paper>
+        </GridCol>
+        <GridCol span={6}>
+          <Paper withBorder>
+            <BuilderTable heading="Active builders" builders={DUMMY_BUILDERS} />
+          </Paper>
+        </GridCol>
       </Grid>
     </Stack>
   );

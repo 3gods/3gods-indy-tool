@@ -1,12 +1,9 @@
 import type { Builder } from './builder';
 import type { ItemWithId } from './generic';
 
-export type OrderStatus = 'pending' | 'in-progress' | 'completed';
-
-export type Order = ItemWithId & {
+export type Assignment = ItemWithId & {
   itemName: string;
   quantity: number;
-  status: OrderStatus;
+  createdAt: string;
   builder?: Builder;
-  deliveryDate?: string;
 };
