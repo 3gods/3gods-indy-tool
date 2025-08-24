@@ -23,7 +23,7 @@ export const AssignmentTable = forwardRef<HTMLDivElement, AssignmentTableProps>(
           <Title order={3} p="sm">
             {heading}
           </Title>
-          {loading ? <Loader size="xs" style={{ marginLeft: 'auto' }} /> : null}
+          {loading ? <Loader size="xs" /> : null}
         </Group>
         <List listStyleType="none">
           {assignments.map((assignment) => {

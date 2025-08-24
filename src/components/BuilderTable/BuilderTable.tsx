@@ -14,7 +14,7 @@ import {
 } from '@mantine/core';
 import { BuilderStatusBadge } from '../BuilderStatusBadge';
 import { pluralizeString } from '../../utils/pluralize';
-import { renderPercent } from '../../utils/renderString';
+import { renderNameInitials, renderPercent } from '../../utils/renderString';
 
 export const BuilderTable = forwardRef<HTMLDivElement, BuilderTableProps>(
   ({ builders = [], heading, loading = false }, ref) => {
@@ -24,7 +24,7 @@ export const BuilderTable = forwardRef<HTMLDivElement, BuilderTableProps>(
           <Title order={3} p="sm">
             {heading}
           </Title>
-          {loading ? <Loader size="xs" style={{ marginLeft: 'auto' }} /> : null}
+          {loading ? <Loader size="xs" /> : null}
         </Group>
         <List listStyleType="none">
           {builders.map((builder) => {
@@ -38,12 +38,8 @@ export const BuilderTable = forwardRef<HTMLDivElement, BuilderTableProps>(
                 p="sm"
               >
                 <Group style={{ flexWrap: 'nowrap' }}>
-                  <Avatar
-                    radius="sm"
-                    src={builder.avatarUrl}
-                    alt={builder.name}
-                  >
-                    {builder.name[0].toLocaleUpperCase()}
+                  <Avatar src={builder.avatarUrl} alt={builder.name}>
+                    {renderNameInitials(builder.name)}
                   </Avatar>
                   <Stack gap={0}>
                     <Text>{builder.name}</Text>

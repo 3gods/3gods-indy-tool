@@ -57,3 +57,21 @@ export const renderPercent = (ratio: number) => {
 
   return NUMBER_FORMATTERS.percent.format(ratio);
 };
+
+export const renderNameInitials = (name: string): string => {
+  if (name.includes(' ')) {
+    return name
+      .split(' ')
+      .slice(0, 2)
+      .map((part) => part[0])
+      .join('')
+      .toLocaleUpperCase();
+  }
+
+  const firstLetter = name[0];
+  const nextLetter = name
+    .slice(1)
+    .split('')
+    .find((c) => /[A-Z]/.test(c));
+  return [firstLetter, nextLetter].join('').toLocaleUpperCase();
+};
