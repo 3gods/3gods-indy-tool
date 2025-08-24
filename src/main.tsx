@@ -5,7 +5,14 @@ import { RouterProvider, createRouter } from '@tanstack/react-router';
 import { routeTree } from './routeTree.gen';
 import '@mantine/core/styles.css';
 import '@mantine/notifications/styles.css';
-import { Badge, createTheme, MantineProvider, Paper } from '@mantine/core';
+import {
+  Avatar,
+  Badge,
+  createTheme,
+  Group,
+  MantineProvider,
+  Paper,
+} from '@mantine/core';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 declare module '@tanstack/react-router' {
@@ -24,7 +31,16 @@ const router = createRouter({
 // https://mantine.dev/theming/theme-object/
 const theme = createTheme({
   /** Your theme override here */
+  headings: {
+    // textWrap: 'wrap',
+  },
+
   components: {
+    Avatar: Avatar.extend({
+      defaultProps: {
+        radius: 'sm',
+      },
+    }),
     Badge: Badge.extend({
       defaultProps: {
         radius: 'sm',
@@ -33,6 +49,11 @@ const theme = createTheme({
     Paper: Paper.extend({
       defaultProps: {
         radius: 'md',
+      },
+    }),
+    Group: Group.extend({
+      defaultProps: {
+        wrap: 'nowrap',
       },
     }),
   },

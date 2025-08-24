@@ -26,14 +26,22 @@ import type { Order } from '../../types';
 import { OrderStatusBadge } from '../OrderStatusBadge';
 import { renderDate } from '../../utils/renderString';
 import { IconEdit, IconPlus, IconTrash } from '@tabler/icons-react';
-import { Link } from '@tanstack/react-router';
+import { Link } from '../LinkWrappers';
+import { Link as RouterLink } from '@tanstack/react-router';
 
 const columnHelper = createColumnHelper<Order>();
 
 const columns = [
   columnHelper.accessor('id', {
     header: 'Order ID',
-    cell: (info) => <Code>#{info.getValue()}</Code>,
+    cell: (info) => (
+      <Link
+        to={`/orders/ORD-{$orderId}`}
+        params={{ orderId: info.getValue().replace('ORD-', '') }}
+      >
+        <Code>#{info.getValue()}</Code>
+      </Link>
+    ),
   }),
   columnHelper.accessor('itemName', {
     header: 'Item',
@@ -61,24 +69,19 @@ const columns = [
     id: 'actions',
     header: '',
     cell: (info) => (
-      <Group gap="xs">
+      <Group gap="xs" grow>
         <ActionIcon
           aria-label="Edit"
           variant="light"
-          component={Link}
-          to={`/orders/${info.row.id}`}
+          component={RouterLink}
+          to={`/orders/ORD-{$orderId}/edit`}
+          // @ts-expect-error untyped link
+          params={{ orderId: info.row.original.id.replace('ORD-', '') }}
           style={(theme) => ({ color: theme.black })}
         >
           <IconEdit style={{ width: '70%', height: '70%' }} stroke={1.5} />
         </ActionIcon>
-        <ActionIcon
-          aria-label="Delete"
-          variant="light"
-          bg="red"
-          component={Link}
-          to={`/orders/${info.row.id}`}
-          color="white"
-        >
+        <ActionIcon aria-label="Delete" variant="light" bg="red" color="white">
           <IconTrash style={{ width: '70%', height: '70%' }} stroke={1.5} />
         </ActionIcon>
       </Group>

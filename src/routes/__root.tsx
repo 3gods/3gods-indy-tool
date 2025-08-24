@@ -4,14 +4,23 @@ import {
   AppShellMain,
   AppShellNavbar,
   AppShellSection,
+  Avatar,
   Burger,
+  Divider,
   Group,
   ScrollArea,
+  Stack,
+  Text,
   Title,
-  Typography,
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import { Link, Outlet, createRootRoute } from '@tanstack/react-router';
+import {
+  HeadContent,
+  Link,
+  Outlet,
+  createRootRoute,
+  useRouterState,
+} from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
 import {
   IconHome,
@@ -21,7 +30,9 @@ import {
   IconUserShield,
 } from '@tabler/icons-react';
 import { AppLogo } from '../components/AppLogo';
-import { NavLink } from '../components/NavLink';
+import { NavLink } from '../components/LinkWrappers';
+import { useMemo } from 'react';
+import { renderNameInitials } from '../utils/renderString';
 
 export const Route = createRootRoute({
   component: RootComponent,
@@ -37,69 +48,108 @@ export const Route = createRootRoute({
 
 function RootComponent() {
   const [opened, { toggle }] = useDisclosure();
+  const matches = useRouterState({ select: (s) => s.matches });
+  const title = useMemo(() => {
+    return (
+      matches.filter((m) => m.loaderData?.title).reverse()[0]?.loaderData
+        ?.title || '??'
+    );
+  }, [matches]);
 
   return (
-    <AppShell
-      padding="md"
-      layout="alt"
-      header={{ height: 50 }}
-      navbar={{
-        width: 280,
-        breakpoint: 'sm',
-        collapsed: { mobile: !opened },
-      }}
-    >
-      <AppShellHeader>
-        <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
+    <>
+      <HeadContent />
+      <AppShell
+        padding="md"
+        layout="alt"
+        header={{ height: 55 }}
+        navbar={{
+          width: 280,
+          breakpoint: 'sm',
+          collapsed: { mobile: !opened },
+        }}
+      >
+        <AppShellHeader>
+          <Group p="xs" pl="sm">
+            <Burger
+              opened={opened}
+              onClick={toggle}
+              hiddenFrom="sm"
+              size="sm"
+            />
 
-        <Typography>
-          <Title order={2}>Dashboard</Title>
-        </Typography>
-      </AppShellHeader>
-
-      <AppShellNavbar>
-        <AppShell.Section>
-          <Group>
-            <AppLogo />
-            <Typography>
-              <Title>Industry manager</Title>
-            </Typography>
+            <Title order={2} size="h3" lineClamp={1}>
+              {title}
+            </Title>
           </Group>
-        </AppShell.Section>
-        <AppShellSection grow component={ScrollArea}>
-          <NavLink
-            to="/orders/dashboard"
-            label="Order dashboard"
-            leftSection={<IconHome />}
-          />
-          <NavLink
-            to="/orders/new"
-            label="New buy order"
-            leftSection={<IconInvoice />}
-          />
-          <NavLink
-            to="/queue"
-            label="Assignment queue"
-            leftSection={<IconTool />}
-          />
-          <NavLink
-            to="/bom"
-            label="BOM breakdown"
-            leftSection={<IconListTree />}
-          />
-          <NavLink
-            to="/admin"
-            label="Admin panel"
-            leftSection={<IconUserShield />}
-          />
-        </AppShellSection>
-        <AppShellSection>Footer footer footer</AppShellSection>
-      </AppShellNavbar>
+        </AppShellHeader>
 
-      <AppShellMain>
-        <Outlet />
-        <TanStackRouterDevtools position="bottom-right" />
-      </AppShellMain>
-    </AppShell>
+        <AppShellNavbar>
+          <AppShellSection p="sm">
+            <Group pr="sm">
+              <AppLogo />
+              <Title size="h4">3GODS Industry Manager</Title>
+
+              <Burger
+                opened={opened}
+                onClick={toggle}
+                hiddenFrom="sm"
+                size="sm"
+                style={{ marginLeft: 'auto' }}
+              />
+            </Group>
+          </AppShellSection>
+
+          <Divider />
+
+          <AppShellSection grow component={ScrollArea}>
+            <NavLink
+              to="/orders/dashboard"
+              label="Order dashboard"
+              leftSection={<IconHome />}
+            />
+            <NavLink
+              to="/orders/new"
+              label="New buy order"
+              leftSection={<IconInvoice />}
+            />
+            <NavLink
+              to="/queue"
+              label="Assignment queue"
+              leftSection={<IconTool />}
+            />
+            <NavLink
+              to="/bom"
+              label="BOM breakdown"
+              leftSection={<IconListTree />}
+            />
+            <NavLink
+              to="/admin"
+              label="Admin panel"
+              leftSection={<IconUserShield />}
+            />
+          </AppShellSection>
+
+          <Divider />
+
+          <AppShellSection>
+            <Group p="sm">
+              <Avatar>{renderNameInitials('Admin User')}</Avatar>
+              <Stack gap={0}>
+                <Text>Admin user</Text>
+                <Text c="dimmed" size="sm">
+                  Administrator
+                </Text>
+              </Stack>
+            </Group>
+          </AppShellSection>
+        </AppShellNavbar>
+
+        <AppShellMain>
+          <Outlet />
+          <TanStackRouterDevtools position="bottom-right" />
+        </AppShellMain>
+      </AppShell>
+    </>
   );
 }

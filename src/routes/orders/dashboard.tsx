@@ -16,6 +16,16 @@ import { useAssignments } from '../../hooks/useAssignments';
 
 export const Route = createFileRoute('/orders/dashboard')({
   component: DashboardPage,
+  head: () => ({
+    meta: [
+      {
+        title: 'Dashboard',
+      },
+    ],
+  }),
+  loader: () => ({
+    title: 'Industry order dashboard',
+  }),
 });
 
 function DashboardPage() {

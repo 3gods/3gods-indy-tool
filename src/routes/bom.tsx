@@ -2,6 +2,9 @@ import { createFileRoute } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/bom')({
   component: Component,
+  loader: () => ({
+    title: 'BOM breakdown',
+  }),
 });
 
 function Component() {

@@ -15,6 +15,8 @@ import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as OrdersNewRouteImport } from './routes/orders/new'
 import { Route as OrdersDashboardRouteImport } from './routes/orders/dashboard'
+import { Route as OrdersORDChar123orderIdChar125RouteImport } from './routes/orders/ORD-{$orderId}'
+import { Route as OrdersORDChar123orderIdChar125EditRouteImport } from './routes/orders/ORD-{$orderId}.edit'
 
 const QueueRoute = QueueRouteImport.update({
   id: '/queue',
@@ -46,22 +48,38 @@ const OrdersDashboardRoute = OrdersDashboardRouteImport.update({
   path: '/orders/dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
+const OrdersORDChar123orderIdChar125Route =
+  OrdersORDChar123orderIdChar125RouteImport.update({
+    id: '/orders/ORD-{$orderId}',
+    path: '/orders/ORD-{$orderId}',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const OrdersORDChar123orderIdChar125EditRoute =
+  OrdersORDChar123orderIdChar125EditRouteImport.update({
+    id: '/edit',
+    path: '/edit',
+    getParentRoute: () => OrdersORDChar123orderIdChar125Route,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
   '/bom': typeof BomRoute
   '/queue': typeof QueueRoute
+  '/orders/ORD-{$orderId}': typeof OrdersORDChar123orderIdChar125RouteWithChildren
   '/orders/dashboard': typeof OrdersDashboardRoute
   '/orders/new': typeof OrdersNewRoute
+  '/orders/ORD-{$orderId}/edit': typeof OrdersORDChar123orderIdChar125EditRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
   '/bom': typeof BomRoute
   '/queue': typeof QueueRoute
+  '/orders/ORD-{$orderId}': typeof OrdersORDChar123orderIdChar125RouteWithChildren
   '/orders/dashboard': typeof OrdersDashboardRoute
   '/orders/new': typeof OrdersNewRoute
+  '/orders/ORD-{$orderId}/edit': typeof OrdersORDChar123orderIdChar125EditRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -69,8 +87,10 @@ export interface FileRoutesById {
   '/admin': typeof AdminRoute
   '/bom': typeof BomRoute
   '/queue': typeof QueueRoute
+  '/orders/ORD-{$orderId}': typeof OrdersORDChar123orderIdChar125RouteWithChildren
   '/orders/dashboard': typeof OrdersDashboardRoute
   '/orders/new': typeof OrdersNewRoute
+  '/orders/ORD-{$orderId}/edit': typeof OrdersORDChar123orderIdChar125EditRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -79,18 +99,30 @@ export interface FileRouteTypes {
     | '/admin'
     | '/bom'
     | '/queue'
+    | '/orders/ORD-{$orderId}'
     | '/orders/dashboard'
     | '/orders/new'
+    | '/orders/ORD-{$orderId}/edit'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/admin' | '/bom' | '/queue' | '/orders/dashboard' | '/orders/new'
+  to:
+    | '/'
+    | '/admin'
+    | '/bom'
+    | '/queue'
+    | '/orders/ORD-{$orderId}'
+    | '/orders/dashboard'
+    | '/orders/new'
+    | '/orders/ORD-{$orderId}/edit'
   id:
     | '__root__'
     | '/'
     | '/admin'
     | '/bom'
     | '/queue'
+    | '/orders/ORD-{$orderId}'
     | '/orders/dashboard'
     | '/orders/new'
+    | '/orders/ORD-{$orderId}/edit'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -98,6 +130,7 @@ export interface RootRouteChildren {
   AdminRoute: typeof AdminRoute
   BomRoute: typeof BomRoute
   QueueRoute: typeof QueueRoute
+  OrdersORDChar123orderIdChar125Route: typeof OrdersORDChar123orderIdChar125RouteWithChildren
   OrdersDashboardRoute: typeof OrdersDashboardRoute
   OrdersNewRoute: typeof OrdersNewRoute
 }
@@ -146,14 +179,45 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OrdersDashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/orders/ORD-{$orderId}': {
+      id: '/orders/ORD-{$orderId}'
+      path: '/orders/ORD-{$orderId}'
+      fullPath: '/orders/ORD-{$orderId}'
+      preLoaderRoute: typeof OrdersORDChar123orderIdChar125RouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/orders/ORD-{$orderId}/edit': {
+      id: '/orders/ORD-{$orderId}/edit'
+      path: '/edit'
+      fullPath: '/orders/ORD-{$orderId}/edit'
+      preLoaderRoute: typeof OrdersORDChar123orderIdChar125EditRouteImport
+      parentRoute: typeof OrdersORDChar123orderIdChar125Route
+    }
   }
 }
+
+interface OrdersORDChar123orderIdChar125RouteChildren {
+  OrdersORDChar123orderIdChar125EditRoute: typeof OrdersORDChar123orderIdChar125EditRoute
+}
+
+const OrdersORDChar123orderIdChar125RouteChildren: OrdersORDChar123orderIdChar125RouteChildren =
+  {
+    OrdersORDChar123orderIdChar125EditRoute:
+      OrdersORDChar123orderIdChar125EditRoute,
+  }
+
+const OrdersORDChar123orderIdChar125RouteWithChildren =
+  OrdersORDChar123orderIdChar125Route._addFileChildren(
+    OrdersORDChar123orderIdChar125RouteChildren,
+  )
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRoute: AdminRoute,
   BomRoute: BomRoute,
   QueueRoute: QueueRoute,
+  OrdersORDChar123orderIdChar125Route:
+    OrdersORDChar123orderIdChar125RouteWithChildren,
   OrdersDashboardRoute: OrdersDashboardRoute,
   OrdersNewRoute: OrdersNewRoute,
 }
